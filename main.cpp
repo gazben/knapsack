@@ -60,6 +60,28 @@ struct KnapsackProblem{
         }
     }
 
+    void clear() {
+        valueArray.clear();
+        keepArray.clear();
+    }
+
+    vector<Item> getFitableItems() {
+        vector<Item> result;
+
+        int sizeLeft = knapsack.size - 1;       // coloumn
+        int itemIndex = items.size() - 1;   // row
+
+        while (sizeLeft > 0 && itemIndex > 0) {
+            if (keepArray[itemIndex][sizeLeft] == true) {
+                result.push_back(items[itemIndex - 1]); // because 0 row
+                sizeLeft = sizeLeft - items[itemIndex - 1].weight;
+            }
+            itemIndex--;
+        }
+
+        return result;
+    }
+
     void setKnapsack(Knapsack _knapsack){
         knapsack = _knapsack;
     }
